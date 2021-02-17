@@ -88,10 +88,10 @@ function eatApple(sqaures, tail) {
 function randomApple(squares) {
 	do {
 		appleIndex = Math.floor(Math.random * squares.length)
-	} while (squares[appleIndex].classList.contains("snake")) {
+	} while (squares[appleIndex].classList.contains("snake")) 
 		squares[appleIndex].classList.add("apple")
 	}
-}
+
 function control(e) {
 	if (e.keycode===39) {
 		direction = 1 // This is facing Right
