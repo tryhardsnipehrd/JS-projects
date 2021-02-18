@@ -3,8 +3,9 @@ let grid = document.querySelector(".grid");
 let popup = document.querySelector(".popup");
 let playAgain = document.querySelector(".playAgain");
 let scoreDisplay = document.querySelector(".scoreDisplay");
+let highScoreDisplay = document.querySelector(".highScoreDisplay");
 let left = document.querySelector(".left");
-let bottom = document.querySelector(".bottom");
+let down = document.querySelector(".down");
 let right = document.querySelector(".right");
 let up = document.querySelector(".up");
 let width = 10;
@@ -13,6 +14,7 @@ let appleIndex = 0;
 let currentSnake = [2, 1, 0];
 let direction = 1;
 let score = 0;
+let highScore = 0;
 let speed = 0.8;
 let intervalTime = 0;
 let interval = 0;
@@ -34,8 +36,15 @@ function createBoard() {
 function startGame() {
 	let squares = document.querySelectorAll(".grid div");
 	randomApple(squares);
+	up.addEventListener("click",()=>direction= -width ) 
+	down.addEventListener("click",()=>direction= +width ) 
+	left.addEventListener("click",()=>direction= -1 ) 
+	right.addEventListener("click",()=>direction= 1 ) 
 	direction = 1;
+	if (highScore <= score) {highScore = score}
+	score = 0;
 	scoreDisplay.innerHTML = score;
+	highScoreDisplay.innerHTML = highScore;
 	intervalTime = 1000;
 	currentSnake = [2, 1, 0];
 	currentIndex = 0;
@@ -72,7 +81,7 @@ function checkForHits(squares) {
 			return false;
 		}
 }
-function eatApple(sqaures, tail) {
+function eatApple(squares, tail) {
 	if (squares[currentSnake[0]].classList.contains("apple")) {
 		squares[currentSnake[0]].classList.remove("apple");
 		squares[tail].classList.add("snake");
@@ -87,7 +96,7 @@ function eatApple(sqaures, tail) {
 }
 function randomApple(squares) {
 	do {
-		appleIndex = Math.floor(Math.random * squares.length)
+		appleIndex = Math.floor(Math.random() * squares.length)
 	} while (squares[appleIndex].classList.contains("snake")) 
 		squares[appleIndex].classList.add("apple")
 	}
